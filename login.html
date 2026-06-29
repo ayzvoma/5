@@ -1,13 +1,11 @@
-<!DOCTYPE html>
-<html lang="en-GB">
 <head>
   <meta charset="UTF-8">
 <link rel="icon" type="image/png" href="/assets/favicon.png">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Log In or Sign Up | 5 Metre Scrum Rugby Passport</title>
-  <meta name="description" content="Log in to your 5 Metre Scrum account to manage your player profile, view analytics and apply to trial opportunities.">
+  <title>Log In | 5 Metre Scrum | Free 8-Step Setup | 5 Metre Scrum</title>
+  <meta name="description" content="Create your professional digital rugby CV in 8 easy steps. Add combine stats, highlight videos, passport eligibility and get discovered by scouts at 340+ clubs. Free to start.">
   <meta name="robots" content="noindex, nofollow">
-  <link rel="canonical" href="https://www.5metrescrum.com/login">
+  <link rel="canonical" href="https://www.5metrescrum.com/build">
   <style>
 /* ================================================================
    RUGBYPASS — DESIGN SYSTEM
@@ -1369,191 +1367,397 @@ h1, h2, h3, h4, h5, h6 { line-height: 1.15; font-weight: 700; }
 
 </style>
   <style>
-    body { background: var(--navy); min-height: 100vh; display: flex; flex-direction: column; }
-    .auth-wrap { flex: 1; display: flex; align-items: center; justify-content: center; padding: 40px 24px; }
-    .auth-card {
-      background: var(--white); border-radius: var(--r-2xl);
-      padding: 48px; width: 100%; max-width: 440px;
-      box-shadow: 0 24px 80px rgba(0,0,0,0.3);
+    body { background: var(--navy); }
+    .onboard-wrap { min-height: 100vh; display: grid; grid-template-columns: 400px 1fr; }
+
+    .onboard-left {
+      background: var(--navy-mid);
+      padding: 48px 40px;
+      display: flex; flex-direction: column;
+      position: sticky; top: 0; height: 100vh; overflow: hidden;
+      border-right: 1px solid rgba(255,255,255,0.06);
     }
-    .auth-logo { text-align: center; margin-bottom: var(--space-2xl); }
-    .auth-tabs { display: grid; grid-template-columns: 1fr 1fr; gap: 0; background: var(--off-white); border-radius: var(--r-lg); padding: 4px; margin-bottom: var(--space-xl); }
-    .auth-tab { padding: 10px; text-align: center; font-size: 14px; font-weight: 700; color: var(--slate-400); border-radius: var(--r-md); cursor: pointer; transition: all var(--t-fast); }
+    .onboard-left-glow {
+      position: absolute; bottom: -100px; right: -100px;
+      width: 300px; height: 300px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(0,200,83,0.1) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .onboard-right {
+      background: var(--white);
+      padding: 48px;
+      display: flex; flex-direction: column;
+      min-height: 100vh;
+    }
+
+    .ob-logo { display: flex; align-items: center; gap: 10px; margin-bottom: 48px; }
+    .ob-progress { flex: 1; }
+    .ob-step-list { display: flex; flex-direction: column; gap: 4px; }
+    .ob-step-item {
+      display: flex; align-items: center; gap: 14px;
+      padding: 10px 12px; border-radius: var(--r-md);
+      transition: background var(--t-fast);
+      position: relative;
+    }
+    .ob-step-item.active { background: rgba(0,200,83,0.08); }
+    .ob-step-dot {
+      width: 28px; height: 28px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 12px; font-weight: 700;
+      flex-shrink: 0;
+      border: 2px solid rgba(255,255,255,0.12);
+      color: rgba(255,255,255,0.3);
+      transition: all var(--t-normal);
+    }
+    .ob-step-item.done .ob-step-dot { background: var(--green); border-color: var(--green); color: var(--navy); }
+    .ob-step-item.active .ob-step-dot { border-color: var(--green); color: var(--green); background: transparent; }
+    .ob-step-item-label {
+      font-size: 14px; font-weight: 500;
+      color: rgba(255,255,255,0.35);
+      transition: color var(--t-fast);
+    }
+    .ob-step-item.done .ob-step-item-label { color: rgba(255,255,255,0.6); }
+    .ob-step-item.active .ob-step-item-label { color: var(--white); font-weight: 600; }
+    .ob-connector { width: 2px; height: 16px; background: rgba(255,255,255,0.08); margin-left: 25px; }
+    .ob-connector.done { background: var(--green); }
+
+    .ob-trust {
+      margin-top: auto; padding-top: 32px;
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+    .ob-trust p { font-size: 13px; color: var(--slate-600); margin-bottom: 8px; }
+    .ob-trust-badges { display: flex; gap: 8px; flex-wrap: wrap; }
+    .ob-trust-badge {
+      font-size: 11px; font-weight: 700;
+      padding: 4px 10px; border-radius: var(--r-full);
+      border: 1px solid rgba(255,255,255,0.08);
+      color: var(--slate-400);
+    }
+
+    .ob-step-header { margin-bottom: 40px; }
+    .ob-step-num { font-size: 13px; font-weight: 700; color: var(--green); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
+    .ob-step-title { font-size: 28px; font-weight: 800; color: var(--navy); line-height: 1.2; margin-bottom: 8px; }
+    .ob-step-sub { font-size: 15px; color: var(--slate-600); line-height: 1.6; }
+
+    .ob-nav { display: flex; justify-content: space-between; align-items: center; margin-top: 40px; padding-top: 32px; border-top: 1px solid var(--slate-100); }
+    .ob-step-indicator { font-size: 13px; color: var(--slate-400); font-weight: 500; }
+
+    .position-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+    .position-btn {
+      padding: 12px 8px; border: 1.5px solid var(--slate-200);
+      border-radius: var(--r-md); text-align: center;
+      cursor: pointer; transition: all var(--t-fast);
+      font-size: 13px; font-weight: 600; color: var(--slate-600);
+    }
+    .position-btn:hover { border-color: var(--green); color: var(--green); }
+    .position-btn.selected { border-color: var(--green); background: var(--green-glow); color: var(--navy); }
+    .position-btn .num { font-family: var(--font-display); font-size: 20px; font-weight: 900; color: var(--navy); display: block; line-height: 1; margin-bottom: 2px; }
+    .position-btn.selected .num { color: var(--green-dark); }
+
+    .passport-options { display: flex; flex-direction: column; gap: 10px; }
+    .passport-option {
+      display: flex; align-items: center; gap: 14px;
+      padding: 16px; border: 1.5px solid var(--slate-200);
+      border-radius: var(--r-lg); cursor: pointer; transition: all var(--t-fast);
+    }
+    .passport-option:hover { border-color: var(--green); }
+    .passport-option.selected { border-color: var(--green); background: rgba(0,200,83,0.04); }
+    .passport-option input { accent-color: var(--green); width: 18px; height: 18px; flex-shrink: 0; }
+    .passport-flag { font-size: 24px; flex-shrink: 0; }
+    .passport-info h4 { font-size: 15px; font-weight: 700; color: var(--navy); }
+    .passport-info p { font-size: 13px; color: var(--slate-600); }
+
+    .upload-zone {
+      border: 2px dashed var(--slate-200); border-radius: var(--r-xl);
+      padding: 48px 32px; text-align: center; cursor: pointer;
+      transition: all var(--t-fast); background: var(--off-white);
+    }
+    .upload-zone:hover { border-color: var(--green); background: rgba(0,200,83,0.02); }
+    .upload-zone .icon { color: var(--slate-400); margin-bottom: var(--space-md); }
+    .upload-zone h4 { font-size: 16px; font-weight: 700; color: var(--navy); margin-bottom: 4px; }
+    .upload-zone p { font-size: 14px; color: var(--slate-600); }
+
+    .metric-input-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-md); }
+
+    .plan-choice { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-md); }
+    .plan-option {
+      border: 2px solid var(--slate-100); border-radius: var(--r-xl);
+      padding: var(--space-xl); cursor: pointer; transition: all var(--t-normal);
+    }
+    .plan-option:hover { border-color: var(--green); }
+    .plan-option.selected { border-color: var(--green); background: rgba(0,200,83,0.03); }
+    .plan-option h4 { font-size: 18px; font-weight: 800; color: var(--navy); }
+    .plan-option .price { font-family: var(--font-display); font-size: 36px; font-weight: 900; color: var(--navy); line-height: 1; margin: 8px 0; }
+    .plan-option .price span { font-size: 16px; font-weight: 400; color: var(--slate-400); }
+    .plan-option ul { list-style: none; margin-top: 16px; }
+    .plan-option ul li { font-size: 13px; color: var(--slate-600); padding: 3px 0; display: flex; gap: 8px; }
+    .plan-option ul li::before { content: '✓'; color: var(--green); font-weight: 700; flex-shrink: 0; }
+
+    @media (max-width: 768px) {
+      .onboard-wrap { grid-template-columns: 1fr; }
+      .onboard-left { display: none; }
+      .onboard-right { padding: 32px 24px; }
+      .position-grid { grid-template-columns: repeat(4, 1fr); }
+      .plan-choice { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+  <style>
+    /* ── LOGIN — matches onboarding split-panel layout ───── */
+    .onboard-wrap { min-height: 100vh; display: grid; grid-template-columns: 400px 1fr; }
+    .onboard-left {
+      background: var(--navy-mid);
+      padding: 48px 40px;
+      display: flex; flex-direction: column;
+      position: sticky; top: 0; height: 100vh; overflow: hidden;
+    }
+    .onboard-left::before {
+      content: ''; position: absolute;
+      width: 400px; height: 400px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(0,200,83,0.12) 0%, transparent 70%);
+      bottom: -40%; right: -20%; pointer-events: none;
+    }
+    .onboard-right {
+      background: var(--white);
+      padding: 48px;
+      display: flex; flex-direction: column;
+      justify-content: center; min-height: 100vh;
+    }
+    .ob-logo { display: block; margin-bottom: 48px; }
+    .onboard-left-glow {
+      position: absolute;
+      width: 300px; height: 300px;
+      background: radial-gradient(circle, rgba(0,200,83,0.08) 0%, transparent 70%);
+      top: -60px; left: -60px; pointer-events: none;
+    }
+
+    /* Social proof block */
+    .login-proof {
+      margin-top: auto;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 16px;
+      padding: 24px;
+    }
+    .login-proof-label {
+      font-size: 11px; font-weight: 700; color: var(--green);
+      text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 16px;
+    }
+    .login-stat-row {
+      display: flex; gap: 24px; margin-top: 16px;
+      padding-top: 16px; border-top: 1px solid rgba(255,255,255,0.06);
+    }
+    .login-stat { text-align: center; }
+    .login-stat .n {
+      font-family: var(--font-display); font-size: 30px; font-weight: 900;
+      color: var(--green); line-height: 1; display: block;
+    }
+    .login-stat .l { font-size: 11px; color: var(--slate-400); }
+
+    /* Heading in left panel */
+    .login-tagline {
+      margin-top: 32px;
+    }
+    .login-tagline h2 {
+      font-family: var(--font-display);
+      font-size: 28px; font-weight: 900; text-transform: uppercase;
+      color: #fff; line-height: 1.1; margin-bottom: 10px;
+    }
+    .login-tagline p {
+      font-size: 14px; color: var(--slate-400); line-height: 1.6;
+    }
+
+    /* Right panel form */
+    .login-right-inner { max-width: 400px; width: 100%; margin: 0 auto; }
+    .auth-tabs {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 0;
+      background: var(--off-white); border-radius: var(--r-lg);
+      padding: 4px; margin-bottom: var(--space-xl);
+    }
+    .auth-tab {
+      padding: 11px; text-align: center; font-size: 14px; font-weight: 700;
+      color: var(--slate-400); border-radius: var(--r-md);
+      cursor: pointer; transition: all var(--t-fast); border: none;
+      background: none; font-family: inherit;
+    }
     .auth-tab.active { background: var(--white); color: var(--navy); box-shadow: 0 1px 4px rgba(0,0,0,0.1); }
-    .auth-divider { display: flex; align-items: center; gap: 12px; margin: var(--space-lg) 0; }
-    .auth-divider::before, .auth-divider::after { content: ''; flex: 1; height: 1px; background: var(--slate-100); }
+    .auth-divider {
+      display: flex; align-items: center; gap: 12px; margin: var(--space-lg) 0;
+    }
+    .auth-divider::before, .auth-divider::after {
+      content: ''; flex: 1; height: 1px; background: var(--slate-100);
+    }
     .auth-divider span { font-size: 12px; color: var(--slate-400); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
     .social-btn {
       display: flex; align-items: center; justify-content: center; gap: 12px;
       width: 100%; padding: 12px; border: 1.5px solid var(--slate-200);
       border-radius: var(--r-lg); font-size: 14px; font-weight: 600; color: var(--navy);
       cursor: pointer; transition: all var(--t-fast); background: var(--white);
-      margin-bottom: 10px;
+      margin-bottom: 10px; font-family: inherit;
     }
     .social-btn:hover { border-color: var(--navy); background: var(--off-white); }
     .auth-footer { text-align: center; margin-top: var(--space-lg); font-size: 13px; color: var(--slate-400); }
-    .auth-footer a { color: var(--green); font-weight: 600; }
-    .auth-hero { background: var(--navy-mid); border-radius: var(--r-xl); padding: var(--space-xl); text-align: center; margin-bottom: var(--space-xl); border: 1px solid rgba(255,255,255,0.06); }
-    .auth-hero p { font-size: 13px; color: var(--slate-400); }
-    .auth-hero strong { color: var(--white); }
-
+    .auth-footer a { color: var(--green); font-weight: 600; text-decoration: none; }
     .password-input { position: relative; }
     .password-toggle {
       position: absolute; right: 14px; top: 50%; transform: translateY(-50%);
       cursor: pointer; color: var(--slate-400); background: none; border: none; padding: 0;
     }
+    .login-page-title {
+      font-family: var(--font-display);
+      font-size: 28px; font-weight: 900; text-transform: uppercase;
+      color: var(--navy); margin-bottom: 4px; line-height: 1.1;
+    }
+    .login-page-sub {
+      font-size: 14px; color: var(--slate-400); margin-bottom: 28px;
+    }
+    @media (max-width: 768px) {
+      .onboard-wrap { grid-template-columns: 1fr; }
+      .onboard-left { display: none; }
+      .onboard-right { padding: 32px 24px; min-height: auto; }
+    }
   </style>
 </head>
 <body>
 
-<!-- Minimal Nav -->
-<nav style="padding:20px 40px;display:flex;justify-content:space-between;align-items:center;" role="navigation" aria-label="Authentication navigation">
-  <a href="/" class="nav-logo" aria-label="5 Metre Scrum Home">
-    <img src="/assets/logo.png" alt="5 Metre Scrum" style="height:40px;width:auto;display:block;" loading="eager">
-    
-  </a>
-  <a href="/onboarding.html" class="btn btn-primary btn-sm">Build My CV — Free</a>
-</nav>
+<div class="onboard-wrap">
 
-<div class="auth-wrap">
-  <div class="auth-card">
+  <!-- LEFT PANEL -->
+  <aside class="onboard-left">
+    <div class="onboard-left-glow" aria-hidden="true"></div>
 
-    <div class="auth-logo">
-      <div style="display:flex;align-items:center;gap:10px;justify-content:center;margin-bottom:8px;">
-        <img src="/assets/logo.png" alt="5 Metre Scrum" style="height:40px;width:auto;display:block;" loading="eager">
-      </div>
-      <p style="font-size:22px;font-weight:800;color:var(--navy);">Welcome Back</p>
-      <p style="font-size:14px;color:var(--slate-600);margin-top:4px;">Log in to manage your player profile</p>
+    <a href="/" class="ob-logo" aria-label="5 Metre Scrum Home">
+      <img src="/assets/logo.png" alt="5 Metre Scrum" style="height:40px;width:auto;display:block;" loading="eager">
+    </a>
+
+    <div class="login-tagline">
+      <h2>Your Digital<br>Rugby Passport.</h2>
+      <p>Join players already discoverable by scouts at 340+ professional clubs worldwide.</p>
     </div>
 
-    <!-- Tabs -->
-    <div class="auth-tabs" role="tablist" aria-label="Login or sign up">
-      <button class="auth-tab active" role="tab" aria-selected="true" id="tab-login" onclick="switchTab('login')">Log In</button>
-      <button class="auth-tab" role="tab" aria-selected="false" id="tab-signup" onclick="switchTab('signup')">Sign Up</button>
+    <div class="login-proof" style="margin-top:40px;">
+      <p class="login-proof-label">Why players choose 5MS</p>
+      <p style="font-size:13px;color:var(--slate-400);line-height:1.55;font-style:italic;">&ldquo;Within 3 weeks of building my profile, a Championship club's recruitment manager contacted me directly.&rdquo;</p>
+      <p style="font-size:12px;color:var(--slate-600);margin-top:8px;">— Jamie K., Openside Flanker · Doncaster Knights</p>
+      <div class="login-stat-row">
+        <div class="login-stat"><span class="n">340+</span><span class="l">Clubs Scouting</span></div>
+        <div class="login-stat"><span class="n">31</span><span class="l">Countries</span></div>
+        <div class="login-stat"><span class="n">186</span><span class="l">Placements</span></div>
+      </div>
     </div>
 
-    <!-- Login Form -->
-    <div id="login-form">
-      <div class="form-group">
-        <label class="form-label" for="login-email">Email Address</label>
-        <input type="email" id="login-email" class="form-input" placeholder="you@example.com" autocomplete="email" required>
+    <div style="margin-top:auto;padding-top:40px;">
+      <p style="font-size:12px;color:var(--slate-600);line-height:1.5;">
+        Don't have an account? <a href="/onboarding.html" style="color:var(--green);font-weight:600;">Build your profile free →</a>
+      </p>
+    </div>
+  </aside>
+
+  <!-- RIGHT PANEL -->
+  <div class="onboard-right">
+    <div class="login-right-inner">
+
+      <p class="login-page-title" id="form-title">Welcome Back</p>
+      <p class="login-page-sub" id="form-sub">Log in to your 5 Metre Scrum account.</p>
+
+      <!-- Tabs -->
+      <div class="auth-tabs" role="tablist" aria-label="Login or sign up">
+        <button class="auth-tab active" role="tab" aria-selected="true" id="tab-login" onclick="switchTab('login')">Log In</button>
+        <button class="auth-tab" role="tab" aria-selected="false" id="tab-signup" onclick="switchTab('signup')">Sign Up</button>
       </div>
-      <div class="form-group">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
-          <label class="form-label" for="login-password" style="margin-bottom:0;">Password</label>
-          <a href="mailto:hello@5metrescrum.com?subject=Password%20Reset" style="font-size:12px;color:var(--green);font-weight:600;">Forgot password?</a>
+
+      <!-- LOGIN FORM -->
+      <div id="login-form">
+        <button class="social-btn" type="button">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844a4.14 4.14 0 01-1.796 2.716v2.259h2.908c1.702-1.567 2.684-3.875 2.684-6.615z" fill="#4285F4"/><path d="M9 18c2.43 0 4.467-.806 5.956-2.18l-2.908-2.259c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332A8.997 8.997 0 009 18z" fill="#34A853"/><path d="M3.964 10.71A5.41 5.41 0 013.682 9c0-.593.102-1.17.282-1.71V4.958H.957A8.996 8.996 0 000 9c0 1.452.348 2.827.957 4.042l3.007-2.332z" fill="#FBBC05"/><path d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0A8.997 8.997 0 00.957 4.958L3.964 6.29C4.672 4.163 6.656 3.58 9 3.58z" fill="#EA4335"/></svg>
+          Continue with Google
+        </button>
+        <div class="auth-divider"><span>or sign in with email</span></div>
+        <div class="form-group">
+          <label class="form-label" for="login-email">Email Address</label>
+          <input type="email" id="login-email" class="form-input" placeholder="you@example.com" autocomplete="email" required>
         </div>
-        <div class="password-input">
-          <input type="password" id="login-password" class="form-input" placeholder="••••••••" autocomplete="current-password" required style="padding-right:44px;">
-          <button class="password-toggle" type="button" aria-label="Toggle password visibility" onclick="togglePassword('login-password')">
-            <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="3" stroke="currentColor" stroke-width="1.5"/><path d="M1.5 9C3 5 6 3 9 3s6 2 7.5 6c-1.5 4-4.5 6-7.5 6s-6-2-7.5-6z" stroke="currentColor" stroke-width="1.5"/></svg>
-          </button>
+        <div class="form-group">
+          <label class="form-label" for="login-password">Password</label>
+          <div class="password-input">
+            <input type="password" id="login-password" class="form-input" placeholder="Your password" autocomplete="current-password" style="padding-right:44px;" required>
+            <button class="password-toggle" type="button" aria-label="Toggle password visibility" onclick="togglePassword('login-password')">
+              <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="3" stroke="currentColor" stroke-width="1.5"/><path d="M1.5 9C3 5 6 3 9 3s6 2 7.5 6c-1.5 4-4.5 6-7.5 6s-6-2-7.5-6z" stroke="currentColor" stroke-width="1.5"/></svg>
+            </button>
+          </div>
         </div>
-      </div>
-
-      <label style="display:flex;gap:10px;align-items:center;font-size:14px;color:var(--slate-600);margin-bottom:var(--space-lg);cursor:pointer;">
-        <input type="checkbox" style="accent-color:var(--green);width:16px;height:16px;" aria-label="Keep me signed in">
-        Keep me signed in
-      </label>
-
-      <button class="btn btn-primary btn-lg" style="width:100%;" type="button" onclick="location.href='/player-profile.html'">
-        Log In to 5 Metre Scrum
-      </button>
-
-      <div class="auth-divider"><span>or continue with</span></div>
-
-      <button class="social-btn" type="button">
-        <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844a4.14 4.14 0 01-1.796 2.716v2.259h2.908c1.702-1.567 2.684-3.875 2.684-6.615z" fill="#4285F4"/><path d="M9 18c2.43 0 4.467-.806 5.956-2.18l-2.908-2.259c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332A8.997 8.997 0 009 18z" fill="#34A853"/><path d="M3.964 10.71A5.41 5.41 0 013.682 9c0-.593.102-1.17.282-1.71V4.958H.957A8.996 8.996 0 000 9c0 1.452.348 2.827.957 4.042l3.007-2.332z" fill="#FBBC05"/><path d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0A8.997 8.997 0 00.957 4.958L3.964 7.29C4.672 5.163 6.656 3.58 9 3.58z" fill="#EA4335"/></svg>
-        Continue with Google
-      </button>
-
-      <button class="social-btn" type="button">
-        <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M13.5 1.5H4.5C2.843 1.5 1.5 2.843 1.5 4.5v9c0 1.657 1.343 3 3 3h9c1.657 0 3-1.343 3-3v-9c0-1.657-1.343-3-3-3z" stroke="#1877F2" stroke-width="1.5"/><path d="M12 6H10.5C9.672 6 9 6.672 9 7.5V9H12l-.5 3H9v4.5" stroke="#1877F2" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        Continue with Facebook
-      </button>
-    </div>
-
-    <!-- Sign Up Form -->
-    <div id="signup-form" style="display:none;">
-      <div class="auth-hero">
-        <p>Join players already discoverable by scouts at 340+ professional clubs. <strong>Free to start.</strong></p>
-      </div>
-      <a href="/onboarding.html" class="btn btn-primary btn-lg" style="width:100%;margin-bottom:16px;">
-        Build My CV — 8-Step Wizard →
-      </a>
-      <div class="auth-divider"><span>or quick sign up</span></div>
-      <div class="form-group">
-        <label class="form-label" for="signup-name">Full Name</label>
-        <input type="text" id="signup-name" class="form-input" placeholder="Jamie Kruger" autocomplete="name" required>
-      </div>
-      <div class="form-group">
-        <label class="form-label" for="signup-email">Email Address</label>
-        <input type="email" id="signup-email" class="form-input" placeholder="you@example.com" autocomplete="email" required>
-      </div>
-      <div class="form-group">
-        <label class="form-label" for="signup-password">Create Password</label>
-        <div class="password-input">
-          <input type="password" id="signup-password" class="form-input" placeholder="Min. 8 characters" autocomplete="new-password" style="padding-right:44px;">
-          <button class="password-toggle" type="button" aria-label="Toggle password visibility" onclick="togglePassword('signup-password')">
-            <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="3" stroke="currentColor" stroke-width="1.5"/><path d="M1.5 9C3 5 6 3 9 3s6 2 7.5 6c-1.5 4-4.5 6-7.5 6s-6-2-7.5-6z" stroke="currentColor" stroke-width="1.5"/></svg>
-          </button>
+        <div style="text-align:right;margin-bottom:var(--space-lg);">
+          <a href="#" style="font-size:13px;color:var(--green);font-weight:600;text-decoration:none;">Forgot password?</a>
         </div>
+        <button class="btn btn-primary btn-lg" style="width:100%;" type="button" onclick="location.href='/dashboard.html'">Log In</button>
       </div>
-      <label style="display:flex;gap:10px;align-items:flex-start;font-size:13px;color:var(--slate-600);margin-bottom:var(--space-lg);cursor:pointer;line-height:1.5;">
-        <input type="checkbox" style="accent-color:var(--green);width:16px;height:16px;margin-top:2px;flex-shrink:0;" required>
-        I agree to 5 Metre Scrum <a href="/terms.html" style="color:var(--green);">Terms of Service</a> and <a href="/privacy.html" style="color:var(--green);">Privacy Policy</a>
-      </label>
-      <button class="btn btn-primary btn-lg" style="width:100%;" type="button" onclick="location.href='/onboarding.html'">Create Free Account</button>
-    </div>
 
-    <div class="auth-footer">
-      <span id="auth-toggle-text">Don't have an account? <a href="#" onclick="switchTab('signup');return false;">Sign up free</a></span>
-    </div>
-  
-<!-- SARAH: Trust/social proof alongside login -->
-<div style="background:var(--navy-mid);border:1px solid rgba(255,255,255,.07);border-radius:16px;padding:28px;margin-top:24px;">
-  <p style="font-size:12px;font-weight:700;color:var(--green);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:16px;">Why players choose 5 Metre Scrum</p>
-  <div style="display:flex;flex-direction:column;gap:14px;">
-    <div style="display:flex;align-items:center;gap:12px;">
-      <div style="width:36px;height:36px;border-radius:50%;background:var(--green);display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:14px;font-weight:900;color:var(--navy);flex-shrink:0;">JK</div>
-      <p style="font-size:13px;color:var(--slate-400);line-height:1.5;font-style:italic;">&ldquo;Within 3 weeks a Championship club contacted me directly.&rdquo;</p>
-    </div>
-    <div style="border-top:1px solid rgba(255,255,255,.06);padding-top:14px;display:flex;gap:20px;">
-      
-      <div style="text-align:center;"><span style="font-family:var(--font-display);font-size:28px;font-weight:900;color:var(--green);display:block;line-height:1;">340+</span><span style="font-size:11px;color:var(--slate-400);">Clubs</span></div>
-      <div style="text-align:center;"><span style="font-family:var(--font-display);font-size:28px;font-weight:900;color:var(--green);display:block;line-height:1;">186</span><span style="font-size:11px;color:var(--slate-400);">Placements</span></div>
+      <!-- SIGNUP FORM -->
+      <div id="signup-form" style="display:none;">
+        <a href="/onboarding.html" class="btn btn-primary btn-lg" style="width:100%;margin-bottom:16px;display:block;text-align:center;">
+          Build My CV — 8-Step Wizard →
+        </a>
+        <div class="auth-divider"><span>or quick sign up</span></div>
+        <div class="form-group">
+          <label class="form-label" for="signup-name">Full Name</label>
+          <input type="text" id="signup-name" class="form-input" placeholder="Jamie Kruger" autocomplete="name" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="signup-email">Email Address</label>
+          <input type="email" id="signup-email" class="form-input" placeholder="you@example.com" autocomplete="email" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="signup-password">Create Password</label>
+          <div class="password-input">
+            <input type="password" id="signup-password" class="form-input" placeholder="Min. 8 characters" autocomplete="new-password" style="padding-right:44px;">
+            <button class="password-toggle" type="button" aria-label="Toggle password visibility" onclick="togglePassword('signup-password')">
+              <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="3" stroke="currentColor" stroke-width="1.5"/><path d="M1.5 9C3 5 6 3 9 3s6 2 7.5 6c-1.5 4-4.5 6-7.5 6s-6-2-7.5-6z" stroke="currentColor" stroke-width="1.5"/></svg>
+            </button>
+          </div>
+        </div>
+        <label style="display:flex;gap:10px;align-items:flex-start;font-size:13px;color:var(--slate-600);margin-bottom:var(--space-lg);cursor:pointer;line-height:1.5;">
+          <input type="checkbox" style="accent-color:var(--green);width:16px;height:16px;margin-top:2px;flex-shrink:0;" required>
+          I agree to 5 Metre Scrum <a href="/terms.html" style="color:var(--green);">Terms of Service</a> and <a href="/privacy.html" style="color:var(--green);">Privacy Policy</a>
+        </label>
+        <button class="btn btn-primary btn-lg" style="width:100%;" type="button" onclick="location.href='/onboarding.html'">Create Free Account</button>
+      </div>
+
+      <div class="auth-footer">
+        <span id="auth-toggle-text">Don't have an account? <a href="#" onclick="switchTab('signup');return false;">Sign up free</a></span>
+      </div>
+
     </div>
   </div>
-</div>
-</div>
+
 </div>
 
 <script>
   function switchTab(tab) {
-    const login = document.getElementById('login-form');
-    const signup = document.getElementById('signup-form');
-    const loginTab = document.getElementById('tab-login');
-    const signupTab = document.getElementById('tab-signup');
+    const loginForm = document.getElementById('login-form');
+    const signupForm = document.getElementById('signup-form');
+    const tabLogin = document.getElementById('tab-login');
+    const tabSignup = document.getElementById('tab-signup');
     const toggleText = document.getElementById('auth-toggle-text');
+    const title = document.getElementById('form-title');
+    const sub = document.getElementById('form-sub');
     if (tab === 'login') {
-      login.style.display = '';
-      signup.style.display = 'none';
-      loginTab.classList.add('active');
-      loginTab.setAttribute('aria-selected', 'true');
-      signupTab.classList.remove('active');
-      signupTab.setAttribute('aria-selected', 'false');
+      loginForm.style.display = '';
+      signupForm.style.display = 'none';
+      tabLogin.classList.add('active'); tabLogin.setAttribute('aria-selected', 'true');
+      tabSignup.classList.remove('active'); tabSignup.setAttribute('aria-selected', 'false');
+      title.textContent = 'Welcome Back';
+      sub.textContent = 'Log in to your 5 Metre Scrum account.';
       toggleText.innerHTML = 'Don\'t have an account? <a href="#" onclick="switchTab(\'signup\');return false;">Sign up free</a>';
     } else {
-      login.style.display = 'none';
-      signup.style.display = '';
-      signupTab.classList.add('active');
-      signupTab.setAttribute('aria-selected', 'true');
-      loginTab.classList.remove('active');
-      loginTab.setAttribute('aria-selected', 'false');
+      loginForm.style.display = 'none';
+      signupForm.style.display = '';
+      tabSignup.classList.add('active'); tabSignup.setAttribute('aria-selected', 'true');
+      tabLogin.classList.remove('active'); tabLogin.setAttribute('aria-selected', 'false');
+      title.textContent = 'Create Your Profile';
+      sub.textContent = 'Join players being discovered by 340+ clubs.';
       toggleText.innerHTML = 'Already have an account? <a href="#" onclick="switchTab(\'login\');return false;">Log in</a>';
     }
   }
-
   function togglePassword(id) {
     const input = document.getElementById(id);
     if (input) input.type = input.type === 'password' ? 'text' : 'password';
