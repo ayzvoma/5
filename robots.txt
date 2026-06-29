@@ -1,0 +1,26 @@
+User-agent: *
+Allow: /
+
+# Block auth and dashboard pages from indexing
+Disallow: /pages/login.html
+Disallow: /pages/dashboard.html
+Disallow: /pages/onboarding.html
+
+# Allow all key SEO pages
+Allow: /index.html
+Allow: /pages/scout-board.html
+Allow: /pages/trials.html
+Allow: /pages/clubs.html
+Allow: /pages/blog.html
+Allow: /pages/pricing.html
+Allow: /pages/player-profile.html
+
+# Allow media
+Allow: /css/
+Allow: /js/
+
+# Sitemap location
+Sitemap: https://www.rugbypass.io/sitemap.xml
+
+# Crawl delay (optional — remove if causing indexing issues)
+Crawl-delay: 1
