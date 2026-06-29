@@ -19,39 +19,17 @@
     /* ── PRICING PAGE ─────────────────────────────────────── */
     body { background: #fff; }
 
-    .pricing-hero {
-      background: var(--navy);
-      padding: 120px 0 80px;
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-    }
-    .pricing-hero::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background:
-        radial-gradient(ellipse 60% 80% at 70% 30%, rgba(0,200,83,0.07) 0%, transparent 65%),
-        radial-gradient(ellipse 40% 60% at 20% 80%, rgba(22,43,80,0.6) 0%, transparent 60%);
-    }
-    .pricing-hero > * { position: relative; z-index: 1; }
-    .pricing-hero .breadcrumb-nav {
-      display: flex; align-items: center; justify-content: center;
-      gap: 6px; font-size: 13px; color: var(--slate-400);
-      list-style: none; padding: 0; margin: 0 0 28px;
-    }
-    .pricing-hero .breadcrumb-nav a { color: var(--slate-400); text-decoration: none; }
-    .pricing-hero .breadcrumb-nav .sep { color: rgba(255,255,255,0.2); }
-    .pricing-hero h1 {
-      font-family: var(--font-display);
-      font-size: clamp(36px, 6vw, 72px);
-      font-weight: 900; text-transform: uppercase;
-      color: var(--white); line-height: 1; margin-bottom: 16px;
-    }
-    .pricing-hero p {
-      font-size: 18px; color: var(--slate-400);
-      max-width: 500px; margin: 0 auto 32px; line-height: 1.65;
-    }
+    /* page-hero matches about.html style exactly */
+    .page-hero { position:relative;overflow:hidden;background:var(--navy);padding:120px 0 64px; }
+    .ph-bg { position:absolute;inset:0; }
+    .ph-bg img { width:100%;height:100%;object-fit:cover;object-position:center 35%;filter:brightness(.28) saturate(.75); }
+    .ph-bg::after { content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,22,40,.45) 0%,rgba(10,22,40,.97) 100%); }
+    .ph-inner { position:relative;z-index:1;text-align:center;display:flex;flex-direction:column;align-items:center; }
+    .ph-inner h1 { text-align:center; font-family:var(--font-display);font-size:clamp(34px,5vw,62px);font-weight:900;text-transform:uppercase;color:#fff;line-height:1.03;margin-bottom:14px; }
+    .ph-inner p { text-align:center; font-size:17px;color:var(--slate-400);line-height:1.7;max-width:560px;margin-left:auto;margin-right:auto; }
+    .breadcrumb { display:flex;justify-content:center;gap:8px;align-items:center;font-size:13px;color:var(--slate-600);margin-bottom:20px;width:100%; }
+    .breadcrumb a { color:var(--slate-400);text-decoration:none;transition:color .15s; }
+    .breadcrumb a:hover { color:#fff; }
 
     /* Toggle */
     .billing-toggle {
@@ -199,7 +177,7 @@
         <a href="/" class="nav-link">Home</a>
   <a href="/about.html" class="nav-link">About Us</a>
   <a href="/scout-board.html" class="nav-link">Scout Board</a><a href="/trials.html" class="nav-link">Trials &amp; Tours</a><a href="/clubs.html" class="nav-link">Clubs</a><a href="/blog.html" class="nav-link">Blog</a><a href="/pricing.html" class="nav-link active" aria-current="page">Pricing</a>
-        <a href="/login.html" class="nav-login">Log In</a><a href="/onboarding.html" class="btn-nav">Build My CV</a><button class="hamburger" id="mob-btn" aria-label="Open menu" aria-expanded="false"><svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M3 6h16M3 11h16M3 16h16" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"/></svg></button></div></div></div></nav>
+        <a href="/login.html" class="nav-login">Log In</a><a href="/contact.html" class="nav-login">Contact Us</a><a href="/onboarding.html" class="btn-nav">Build My CV</a><button class="hamburger" id="mob-btn" aria-label="Open menu" aria-expanded="false"><svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M3 6h16M3 11h16M3 16h16" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"/></svg></button></div></div></div></nav>
 <div class="mob-menu" id="mob-menu" role="dialog" aria-label="Mobile navigation"><a href="/" class="nav-link">Home</a>
   <a href="/about.html" class="nav-link">About Us</a>
   <a href="/scout-board.html" class="nav-link">Scout Board</a>
@@ -207,25 +185,24 @@
 <a href="/clubs.html" class="nav-link">Clubs</a>
 <a href="/blog.html" class="nav-link">Blog</a>
 <a href="/pricing.html" class="nav-link">Pricing</a>
+<a href="/contact.html" class="nav-link">Contact Us</a>
 <div class="mob-cta"><a href="/login.html" class="btn btn-secondary btn-lg">Log In</a><a href="/onboarding.html" class="btn btn-primary btn-lg">Build My CV &mdash; Free</a></div>
 
 <!-- PRICING HERO -->
-<div class="pricing-hero">
-  <div class="container">
-    <ol class="breadcrumb-nav">
-      <li><a href="/">Home</a></li>
-      <li><span class="sep">›</span></li>
-      <li>Pricing</li>
-    </ol>
-    <p style="font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--green);margin-bottom:12px;">Simple Pricing</p>
-    <h1>Start Free.<br><span style="color:var(--green);">Upgrade Anytime.</span></h1>
-    <p>No credit card required. Build your profile, get discovered, and upgrade when you're ready for analytics and priority placement.</p>
-    <div class="billing-toggle" role="group" aria-label="Billing period">
+<div class="page-hero">
+  <div class="ph-bg">
+    <img src="https://images.pexels.com/photos/5739177/pexels-photo-5739177.jpeg?auto=compress&cs=tinysrgb&w=1920" alt="Rugby player sprinting with ball" loading="eager">
+  </div>
+  <div class="container ph-inner">
+    <nav class="breadcrumb"><a href="/">Home</a><span>&#8250;</span><span>Pricing</span></nav>
+    <h1 style="text-align:center;">Start Free.<br><span style="color:var(--green);">Upgrade Anytime.</span></h1>
+    <p style="text-align:center;">No credit card required. Build your profile, get discovered, and upgrade when you're ready for analytics and priority placement.</p>
+    <div class="billing-toggle" role="group" aria-label="Billing period" style="margin-top:24px;">
       <span class="active" id="lbl-monthly">Monthly</span>
       <div class="toggle-switch" id="billing-toggle" role="switch" aria-checked="false" tabindex="0" aria-label="Switch to annual billing">
         <div class="toggle-knob"></div>
       </div>
-      <span id="lbl-annual">Annual <span class="save-badge">Save 20%</span></span>
+      <span id="lbl-annual" style="color:var(--white);">Annual <span class="save-badge" style="color:var(--navy);">Save 20%</span></span>
     </div>
   </div>
 </div>
@@ -288,34 +265,6 @@
   </div>
 </section>
 
-<!-- FAQ -->
-<section class="pricing-faq-section">
-  <div class="container">
-    <div style="text-align:center;margin-bottom:48px;">
-      <p style="font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--green);margin-bottom:10px;">Got Questions</p>
-      <h2 style="font-family:var(--font-display);font-size:clamp(26px,4vw,44px);font-weight:900;text-transform:uppercase;color:var(--navy);">Pricing FAQs</h2>
-    </div>
-    <div class="faq-grid">
-      <div class="faq-item">
-        <p>Do I need a credit card to start?</p>
-        <p>No. The Academy plan is completely free with no payment details required. The First XV trial also starts free for 14 days — you only pay if you continue.</p>
-      </div>
-      <div class="faq-item">
-        <p>Can I cancel my First XV subscription?</p>
-        <p>Yes, anytime. Your profile reverts to Academy at the end of the billing period. Your data is never deleted.</p>
-      </div>
-      <div class="faq-item">
-        <p>Are scouts and clubs charged?</p>
-        <p>Scout board access is currently free for verified clubs during our growth phase. Club CRM and messaging tools are available under a separate club subscription.</p>
-      </div>
-      <div class="faq-item">
-        <p>Is there a discount for teams or academies?</p>
-        <p>Yes. Teams of 10+ players get 30% off First XV plans. Email <a href="mailto:hello@5metrescrum.com" style="color:var(--green);">hello@5metrescrum.com</a> for team pricing.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
 <!-- GUARANTEE -->
 <section class="guarantee-section">
   <div class="container">
@@ -324,6 +273,42 @@
       <h2>14-Day Money-Back Guarantee</h2>
       <p>If you upgrade to First XV and it doesn't help you get more scout attention within 14 days, we'll refund you in full. No questions asked.</p>
       <a href="/onboarding.html" class="btn btn-primary btn-lg">Start Free Today</a>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="pricing-faq-section">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:48px;">
+      <p style="font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--green);margin-bottom:10px;">Got Questions</p>
+      <h2 style="font-family:var(--font-display);font-size:clamp(26px,4vw,44px);font-weight:900;text-transform:uppercase;color:var(--navy);">Pricing FAQs</h2>
+    </div>
+    <div class="faq-accordion" style="max-width:700px;margin:0 auto;">
+      <div class="acc-item" style="border:1px solid var(--slate-100);border-radius:14px;margin-bottom:10px;overflow:hidden;">
+        <button class="acc-q" onclick="toggleAcc(this)" style="width:100%;padding:20px 24px;display:flex;justify-content:space-between;align-items:center;font-size:15px;font-weight:700;color:var(--navy);background:none;border:none;cursor:pointer;font-family:inherit;text-align:left;">
+          Do I need a credit card to start?<span class="acc-icon" style="font-size:20px;color:var(--green);transition:transform .2s;flex-shrink:0;margin-left:12px;">+</span>
+        </button>
+        <div class="acc-a" style="display:none;padding:0 24px 20px;font-size:14px;color:var(--slate-600);line-height:1.65;">No. The Academy plan is completely free with no payment details required. The First XV trial also starts free for 14 days — you only pay if you continue.</div>
+      </div>
+      <div class="acc-item" style="border:1px solid var(--slate-100);border-radius:14px;margin-bottom:10px;overflow:hidden;">
+        <button class="acc-q" onclick="toggleAcc(this)" style="width:100%;padding:20px 24px;display:flex;justify-content:space-between;align-items:center;font-size:15px;font-weight:700;color:var(--navy);background:none;border:none;cursor:pointer;font-family:inherit;text-align:left;">
+          Can I cancel my First XV subscription?<span class="acc-icon" style="font-size:20px;color:var(--green);transition:transform .2s;flex-shrink:0;margin-left:12px;">+</span>
+        </button>
+        <div class="acc-a" style="display:none;padding:0 24px 20px;font-size:14px;color:var(--slate-600);line-height:1.65;">Yes, anytime. Your profile reverts to Academy at the end of the billing period. Your data is never deleted.</div>
+      </div>
+      <div class="acc-item" style="border:1px solid var(--slate-100);border-radius:14px;margin-bottom:10px;overflow:hidden;">
+        <button class="acc-q" onclick="toggleAcc(this)" style="width:100%;padding:20px 24px;display:flex;justify-content:space-between;align-items:center;font-size:15px;font-weight:700;color:var(--navy);background:none;border:none;cursor:pointer;font-family:inherit;text-align:left;">
+          Are scouts and clubs charged?<span class="acc-icon" style="font-size:20px;color:var(--green);transition:transform .2s;flex-shrink:0;margin-left:12px;">+</span>
+        </button>
+        <div class="acc-a" style="display:none;padding:0 24px 20px;font-size:14px;color:var(--slate-600);line-height:1.65;">Scout board access is currently free for verified clubs during our growth phase. Club CRM and messaging tools are available under a separate club subscription.</div>
+      </div>
+      <div class="acc-item" style="border:1px solid var(--slate-100);border-radius:14px;overflow:hidden;">
+        <button class="acc-q" onclick="toggleAcc(this)" style="width:100%;padding:20px 24px;display:flex;justify-content:space-between;align-items:center;font-size:15px;font-weight:700;color:var(--navy);background:none;border:none;cursor:pointer;font-family:inherit;text-align:left;">
+          Is there a discount for teams or academies?<span class="acc-icon" style="font-size:20px;color:var(--green);transition:transform .2s;flex-shrink:0;margin-left:12px;">+</span>
+        </button>
+        <div class="acc-a" style="display:none;padding:0 24px 20px;font-size:14px;color:var(--slate-600);line-height:1.65;">Yes. Teams of 10+ players get 30% off First XV plans. Email <a href="mailto:hello@5metrescrum.com" style="color:var(--green);">hello@5metrescrum.com</a> for team pricing.</div>
+      </div>
     </div>
   </div>
 </section>
@@ -658,6 +643,23 @@ document.querySelectorAll('.faq-q').forEach(function(btn){
 });
 
 </script>
+
+<script>
+function toggleAcc(btn) {
+  const answer = btn.nextElementSibling;
+  const icon = btn.querySelector('.acc-icon');
+  const isOpen = answer.style.display !== 'none';
+  // Close all
+  document.querySelectorAll('.acc-a').forEach(a => a.style.display = 'none');
+  document.querySelectorAll('.acc-icon').forEach(i => { i.textContent = '+'; i.style.transform = ''; });
+  // Open this one if it was closed
+  if (!isOpen) {
+    answer.style.display = 'block';
+    icon.textContent = '×';
+    icon.style.transform = 'rotate(0deg)';
+  }
+}
+</script>
 </body>
 
 <script>
@@ -676,6 +678,23 @@ document.querySelectorAll('.faq-q').forEach(function(btn){
   }
   toggle.addEventListener('click', updateToggle);
   toggle.addEventListener('keydown', e => { if (e.key === ' ' || e.key === 'Enter') { e.preventDefault(); updateToggle(); } });
+</script>
+
+<script>
+function toggleAcc(btn) {
+  const answer = btn.nextElementSibling;
+  const icon = btn.querySelector('.acc-icon');
+  const isOpen = answer.style.display !== 'none';
+  // Close all
+  document.querySelectorAll('.acc-a').forEach(a => a.style.display = 'none');
+  document.querySelectorAll('.acc-icon').forEach(i => { i.textContent = '+'; i.style.transform = ''; });
+  // Open this one if it was closed
+  if (!isOpen) {
+    answer.style.display = 'block';
+    icon.textContent = '×';
+    icon.style.transform = 'rotate(0deg)';
+  }
+}
 </script>
 </body>
 </html>
