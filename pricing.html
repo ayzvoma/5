@@ -1420,7 +1420,17 @@ h1, h2, h3, h4, h5, h6 { line-height: 1.15; font-weight: 700; }
       padding: var(--space-2xl);
       position: relative;
     }
-    .pricing-card.featured { border-color: var(--green); }
+    .pricing-card.featured { 
+      border-color: var(--green); 
+      background: var(--navy); 
+      color: var(--white);
+    }
+    .pricing-card.featured .plan-name { color: var(--green); }
+    .pricing-card.featured .plan-price .amount { color: var(--white); }
+    .pricing-card.featured .plan-price .per { color: var(--slate-400); }
+    .pricing-card.featured .plan-desc { color: var(--slate-300); }
+    .pricing-card.featured .feature-item { color: var(--white); }
+    .pricing-card.featured .feature-item.inactive { color: var(--slate-400); }
     .pricing-badge {
       position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
       background: var(--green); color: var(--navy);
@@ -1496,6 +1506,12 @@ h1, h2, h3, h4, h5, h6 { line-height: 1.15; font-weight: 700; }
   </div>
   <div style="position:relative;z-index:1;">
   <div class="container">
+    <nav aria-label="Breadcrumb" style="margin-bottom:20px;">
+      <ol style="display:flex;align-items:center;justify-content:center;gap:6px;font-size:13px;color:var(--slate-400);list-style:none;padding:0;">
+        <li><a href="/" style="color:var(--slate-400);text-decoration:none;">Home</a><span style="margin:0 4px;color:rgba(255,255,255,0.2);">›</span></li>
+        <li style="color:rgba(255,255,255,0.7);font-weight:600;">Pricing</li>
+      </ol>
+    </nav>
     <p class="section-eyebrow">Simple Pricing</p>
     <h1>Start Free.<br><span style="color:var(--green);">Upgrade Anytime.</span></h1>
     <p>No credit card required to get started. Build your profile, get discovered, and upgrade when you're ready to unlock full analytics and priority placement.</p>
@@ -1511,18 +1527,7 @@ h1, h2, h3, h4, h5, h6 { line-height: 1.15; font-weight: 700; }
 </div>
 
 <main>
-<div class="page-hero-bar">
-  <div class="container">
-    <nav aria-label="Breadcrumb">
-    <ol class="breadcrumb">
-      <li><a href="/">Home</a><span class="bc-sep">›</span></li>
-      <li><span class="bc-current">Pricing</span></li>
-    </ol>
-  </nav>
-    <h1>Pricing</h1>
-    <p class="page-hero-sub">Simple, transparent pricing. Start free. Upgrade when you need more.</p>
-  </div>
-</div>
+
   <section class="section section-light" style="padding-top:var(--space-2xl);">
     <div class="container">
 
